@@ -1,12 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Lever : Interactable
 {
+    Animator animator;
+
+    bool isFirstInteraction;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+        isFirstInteraction = true;
+    }
+
     protected override void Interact()
     {
-        base.Interact();
-        //Позже меняю на анимацию рычага так сказатьного
+        if (isFirstInteraction)
+        {
+            base.Interact();
+            PlayerSounds.Instance.PlayCue(interactCue);
+            animator.SetTrigger("LeverDown");
+            GameManager.Instance.SwitchLever();
+            isFirstInteraction = false;
+        }
     }
 }

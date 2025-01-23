@@ -5,33 +5,38 @@ using UnityEngine;
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] Camera cam;
-    [SerializeField] float distance = 3f;
+    [SerializeField] float distance = 2f;
     [SerializeField] LayerMask mask;
 
-    Interactable prevInteractable;
+    Interactable interactable;
 
     private void Update()
     {
         var ray = new Ray(cam.transform.position, cam.transform.forward);
         Debug.DrawRay(ray.origin, ray.direction * distance);
         RaycastHit hitInfo;
-        if(Physics.Raycast(ray, out hitInfo, distance, mask))
+        if (Physics.Raycast(ray, out hitInfo, distance, mask))
         {
-            prevInteractable = hitInfo.collider.GetComponent<Interactable>();
-            if (prevInteractable != null)
+            if(interactable != null)
             {
-                prevInteractable.HandleLookAt();
-                if (InputManager.Instance.IsInteractTriggered())
-                {
-
-                }
+                ResetInteractable();
             }
-
+            interactable = hitInfo.collider.GetComponent<Interactable>();
+            interactable.HandleLookAt();
+            if (InputManager.Instance.IsInteractTriggered())
+            {
+                interactable.BaseInteract();
+            }
         }
-        else if(prevInteractable != null)
+        else if (interactable != null)
         {
-            prevInteractable.HidePromptMessage();
-            prevInteractable = null;
+            ResetInteractable();
         }
+    }
+
+    void ResetInteractable()
+    {
+        interactable.HandleStopLooking();
+        interactable = null;
     }
 }
