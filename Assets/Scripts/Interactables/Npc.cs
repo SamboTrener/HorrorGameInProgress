@@ -7,7 +7,14 @@ public class Npc : Interactable
     [SerializeField] HoldableType neededHoldableSubj;
     [SerializeField] AudioClip[] cues;
     [SerializeField] float maxTimeCue;
+    
     float timeCue = 0f;
+    Animator animator;
+
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     private void Update()
     {
@@ -29,7 +36,7 @@ public class Npc : Interactable
         if (PlayerHold.Instance.GetCurrentHoldableType() == neededHoldableSubj)
         {
             PlayerHold.Instance.DestroyCurrentHoldable();
-            //”ходит
+            animator.SetTrigger("Move");
         }
         else
         {

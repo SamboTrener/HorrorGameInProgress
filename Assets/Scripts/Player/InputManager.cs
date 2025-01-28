@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour
 
     PlayerMotor motor;
     PlayerLook look;
+    PlayerState state;
 
     private void Awake()
     {
@@ -19,16 +20,33 @@ public class InputManager : MonoBehaviour
         look = GetComponent<PlayerLook>();
     }
 
+    public void ChangePlayerState(PlayerState state) => this.state = state;
+
     public bool IsInteractTriggered() => onFoot.Interact.triggered;
 
     private void FixedUpdate()
     {
-        motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+        switch (state)
+        {
+            case PlayerState.Default:
+                motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+                break;
+            case PlayerState.Hiding:
+                break;
+        }
     }
 
     private void LateUpdate()
     {
-        look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+        switch (state)
+        {
+            case PlayerState.Default:
+                look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+                break;
+            case PlayerState.Hiding:
+                look.ProcessHidingLook(onFoot.Look.ReadValue<Vector2>());
+                break;
+        }
     }
 
     private void OnEnable()
