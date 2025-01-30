@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class GameEndZone : MonoBehaviour
 {
-    [SerializeField] AudioClip noConditionCompletedCue;
+    [SerializeField] private AudioClip noConditionCompletedCue;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (!other.CompareTag("Player")) return;
+        if (GameManager.Instance.IsPowerOn)
         {
-            if (GameManager.Instance.IsPowerOn)
-            {
-                //Победа
-            }
-            else
-            {
-                PlayerSounds.Instance.PlayCue(noConditionCompletedCue);
-            }
+            //Game end 
+        }
+        else
+        {
+            PlayerSounds.Instance.PlayCue(noConditionCompletedCue);
         }
     }
 }

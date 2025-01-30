@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Door : Interactable
 {
-    Animator animator;
+    private static readonly int OpenDoor = Animator.StringToHash("OpenDoor");
+    private Animator _animator;
+    private BoxCollider _boxCollider;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        _boxCollider = GetComponent<BoxCollider>();
+        _animator = GetComponent<Animator>();
     }
 
     protected override void Interact()
@@ -16,8 +19,8 @@ public class Door : Interactable
         if(PlayerHold.Instance.GetCurrentHoldableType() == HoldableType.Key)
         {
             base.Interact();
-            animator.SetTrigger("OpenDoor");
-            GetComponent<BoxCollider>().enabled = false;
+            _animator.SetTrigger(OpenDoor);
+            _boxCollider.enabled = false;
             PlayerHold.Instance.DestroyCurrentHoldable();
         }
         else

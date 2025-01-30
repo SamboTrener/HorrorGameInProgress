@@ -4,32 +4,29 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
 
-    PlayerInput playerInput;
-    PlayerInput.OnFootActions onFoot;
+    private PlayerInput _playerInput;
+    private PlayerInput.OnFootActions _onFoot;
 
-    PlayerMotor motor;
-    PlayerLook look;
-    PlayerState state;
+    private PlayerMotor _motor;
+    private PlayerLook _look;
 
     private void Awake()
     {
         Instance = this;
-        playerInput = new PlayerInput();
-        onFoot = playerInput.OnFoot;
-        motor = GetComponent<PlayerMotor>();
-        look = GetComponent<PlayerLook>();
+        _playerInput = new PlayerInput();
+        _onFoot = _playerInput.OnFoot;
+        _motor = GetComponent<PlayerMotor>();
+        _look = GetComponent<PlayerLook>();
     }
 
-    public void ChangePlayerState(PlayerState state) => this.state = state;
-
-    public bool IsInteractTriggered() => onFoot.Interact.triggered;
+    public bool IsInteractTriggered() => _onFoot.Interact.triggered;
 
     private void FixedUpdate()
     {
-        switch (state)
+        switch (PlayerStateMachine.Instance.PlayerState)
         {
             case PlayerState.Default:
-                motor.ProcessMove(onFoot.Movement.ReadValue<Vector2>());
+                _motor.ProcessMove(_onFoot.Movement.ReadValue<Vector2>());
                 break;
             case PlayerState.Hiding:
                 break;
@@ -38,24 +35,24 @@ public class InputManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        switch (state)
+        switch (PlayerStateMachine.Instance.PlayerState)
         {
             case PlayerState.Default:
-                look.ProcessLook(onFoot.Look.ReadValue<Vector2>());
+                _look.ProcessLook(_onFoot.Look.ReadValue<Vector2>());
                 break;
             case PlayerState.Hiding:
-                look.ProcessHidingLook(onFoot.Look.ReadValue<Vector2>());
+                _look.ProcessHidingLook(_onFoot.Look.ReadValue<Vector2>());
                 break;
         }
     }
 
     private void OnEnable()
     {
-        onFoot.Enable();
+        _onFoot.Enable();
     }
 
     private void OnDisable()
     {
-        onFoot.Disable();
+        _onFoot.Disable();
     }
 }

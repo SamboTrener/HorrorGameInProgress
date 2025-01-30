@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class Holdable : Interactable
 {
-    [SerializeField] HoldableType type;
-    [SerializeField] Quaternion inHandRotationOffset;
+    [SerializeField] private HoldableType type;
+    [SerializeField] private Quaternion inHandRotationOffset;
 
     public Quaternion GetInHandRotationOffset()
     {

@@ -1,42 +1,54 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
 {
-    [SerializeField] Camera cam;
-    [SerializeField] float distance = 2f;
-    [SerializeField] LayerMask mask;
+    [SerializeField] private Camera cam;
+    [SerializeField] private float distance = 2f;
+    [SerializeField] private LayerMask mask;
 
-    Interactable interactable;
+    private Interactable _interactable;
 
     private void Update()
     {
-        var ray = new Ray(cam.transform.position, cam.transform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * distance);
-        RaycastHit hitInfo;
-        if (Physics.Raycast(ray, out hitInfo, distance, mask))
+        switch (PlayerStateMachine.Instance.PlayerState)
         {
-            if(interactable != null)
-            {
-                ResetInteractable();
-            }
-            interactable = hitInfo.collider.GetComponent<Interactable>();
-            interactable.HandleLookAt();
-            if (InputManager.Instance.IsInteractTriggered())
-            {
-                interactable.BaseInteract();
-            }
-        }
-        else if (interactable != null)
-        {
-            ResetInteractable();
+            case PlayerState.Default:
+                var ray = new Ray(cam.transform.position, cam.transform.forward);
+                Debug.DrawRay(ray.origin, ray.direction * distance);
+                if (Physics.Raycast(ray, out var hitInfo, distance, mask))
+                {
+                    if (_interactable)
+                    {
+                        ResetInteractable();
+                    }
+                    _interactable = hitInfo.collider.GetComponent<Interactable>();
+                    _interactable.HandleLookAt();
+                    if (InputManager.Instance.IsInteractTriggered())
+                    {
+                        _interactable.BaseInteract();
+                    }
+                }
+                else if (_interactable)
+                {
+                    ResetInteractable();
+                }
+                break;
+            case PlayerState.Hiding:
+                if(_interactable)
+                {
+                    ResetInteractable();
+                }
+                if (InputManager.Instance.IsInteractTriggered())
+                {
+                    StartCoroutine(PlayerMotor.Instance.StopHiding());
+                }
+                break;
         }
     }
 
-    void ResetInteractable()
+    private void ResetInteractable()
     {
-        interactable.HandleStopLooking();
-        interactable = null;
+        _interactable.HandleStopLooking();
+        _interactable = null;
     }
 }

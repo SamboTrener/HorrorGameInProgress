@@ -1,16 +1,23 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMotor : MonoBehaviour
 {
-    [SerializeField] float speed = 5f;
+    public static PlayerMotor Instance { get; private set; }
 
-    CharacterController characterController;
+    [SerializeField] private float speed = 5f;
+
+    private CharacterController _characterController;
+    private Vector3 _beforeHidePosition;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
-        characterController = GetComponent<CharacterController>();
+        _characterController = GetComponent<CharacterController>();
     }
 
     public void ProcessMove(Vector2 input)
@@ -19,6 +26,22 @@ public class PlayerMotor : MonoBehaviour
 
         moveDirection.x = input.x;
         moveDirection.z = input.y;
-        characterController.SimpleMove(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
+        _characterController.SimpleMove(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
+    }
+
+    public void Hide(Transform placeToHide)
+    {
+        PlayerStateMachine.Instance.ChangePlayerState(PlayerState.Hiding);
+        _beforeHidePosition = gameObject.transform.position;
+        gameObject.transform.position = placeToHide.position;
+        Debug.Log(_beforeHidePosition);
+        Debug.Log(gameObject.transform.position);
+    }
+
+    public IEnumerator StopHiding()
+    {
+        gameObject.transform.position = _beforeHidePosition;
+        yield return new WaitForFixedUpdate(); //Start handle movements ONLY after position changed
+        PlayerStateMachine.Instance.ChangePlayerState(PlayerState.Default);
     }
 }

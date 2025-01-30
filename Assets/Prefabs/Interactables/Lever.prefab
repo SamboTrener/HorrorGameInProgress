@@ -81,10 +81,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a346c4f3733be364e8382fc0f9b778ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtText: "[E] - \u041F\u0435\u0440\u0435\u043A\u043B\u044E\u0447\u0438\u0442\u044C"
   interactCue: {fileID: 0}
   cantInteractCue: {fileID: 0}
   interactSound: {fileID: 0}
-  interactableRenderer: {fileID: 1512014454587021906}
+  interactableRenderers:
+  - {fileID: 1512014454587021906}
+  - {fileID: 6186267977856620249}
 --- !u!95 &2397605580715057692
 Animator:
   serializedVersion: 5

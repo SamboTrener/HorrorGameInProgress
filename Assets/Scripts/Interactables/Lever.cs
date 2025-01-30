@@ -2,25 +2,25 @@ using UnityEngine;
 
 public class Lever : Interactable
 {
-    Animator animator;
+    private static readonly int LeverDown = Animator.StringToHash("LeverDown");
+    private Animator _animator;
 
-    bool isFirstInteraction;
+    private bool _isFirstInteraction;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-        isFirstInteraction = true;
+        _animator = GetComponent<Animator>();
+        _isFirstInteraction = true;
     }
 
     protected override void Interact()
     {
-        if (isFirstInteraction)
-        {
-            base.Interact();
-            PlayerSounds.Instance.PlayCue(interactCue);
-            animator.SetTrigger("LeverDown");
-            GameManager.Instance.SwitchLever();
-            isFirstInteraction = false;
-        }
+        if (!_isFirstInteraction)
+            return;
+        base.Interact();
+        PlayerSounds.Instance.PlayCue(interactCue);
+        _animator.SetTrigger(LeverDown);
+        GameManager.Instance.SwitchLever();
+        _isFirstInteraction = false;
     }
 }

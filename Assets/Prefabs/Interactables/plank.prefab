@@ -345,12 +345,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17360ac4c18be974fa4194d8b6935bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtText: "[E] - \u041E\u0442\u043E\u0440\u0432\u0430\u0442\u044C"
   interactCue: {fileID: 0}
   cantInteractCue: {fileID: 8300000, guid: 2e2479abf13a63c42996ba5fd22cbf25, type: 3}
   interactSound: {fileID: 0}
-  interactableRenderer: {fileID: 6067810297781111006}
+  interactableRenderers:
+  - {fileID: 6067810297781111006}
   type: 1
-  inHandPositionOffset: {x: 0, y: 0, z: 0}
   inHandRotationOffset: {x: -0.7667516, y: -0.058144867, z: -0.074112505, w: 0.634995}
   successInteractSound: {fileID: 8300000, guid: 91253f25883bac94c82b6e2096729a1f, type: 3}
 --- !u!54 &3117368201195736514

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LookAtCamera : MonoBehaviour
 {
-    enum Mode
+    private enum Mode
     {
         LookAt,
         LookAtInverted,
@@ -12,24 +12,30 @@ public class LookAtCamera : MonoBehaviour
         CameraForwardInverted,
     }
 
-    [SerializeField] Mode mode;
+    [SerializeField] private Mode mode;
+    private Camera _camera;
+
+    private void Awake()
+    {
+        _camera = Camera.main;
+    }
 
     private void LateUpdate()
     {
         switch (mode)
         {
             case Mode.LookAt:
-                transform.LookAt(Camera.main.transform);
+                transform.LookAt(_camera?.transform);
                 break;
             case Mode.LookAtInverted:
-                Vector3 dirFromCamera = transform.position - Camera.main.transform.position;
+                var dirFromCamera = transform.position - _camera.transform.position;
                 transform.LookAt(transform.position + dirFromCamera);
                 break;
             case Mode.CameraForward:
-                transform.forward = Camera.main.transform.forward;
+                transform.forward = _camera.transform.forward;
                 break;
             case Mode.CameraForwardInverted:
-                transform.forward = -Camera.main.transform.forward;
+                transform.forward = -_camera.transform.forward;
                 break;
         }
     }

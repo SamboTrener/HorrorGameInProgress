@@ -95,10 +95,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136e4761332ce1b41995d65866cb1979, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtText: "[E] - \u041E\u0442\u043A\u0440\u044B\u0442\u044C"
   interactCue: {fileID: 0}
   cantInteractCue: {fileID: 8300000, guid: 802a7008961cc7547b9c32fc234a3108, type: 3}
   interactSound: {fileID: 0}
-  interactableRenderer: {fileID: 7331845338641557410}
+  interactableRenderers:
+  - {fileID: 7331845338641557410}
+  - {fileID: 5410985024114092649}
+  - {fileID: 7405255563105950166}
 --- !u!65 &3902893938824427300
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -141,8 +145,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!23 &5410985024114092649 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3219200849934437471, guid: 4c812b68b332c364395ecfdb81641ede, type: 3}
+  m_PrefabInstance: {fileID: 1748724693537577416}
+  m_PrefabAsset: {fileID: 0}
 --- !u!23 &7331845338641557410 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 9077926073120308842, guid: 4c812b68b332c364395ecfdb81641ede, type: 3}
+  m_PrefabInstance: {fileID: 1748724693537577416}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7405255563105950166 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -107955116091867106, guid: 4c812b68b332c364395ecfdb81641ede, type: 3}
   m_PrefabInstance: {fileID: 1748724693537577416}
   m_PrefabAsset: {fileID: 0}

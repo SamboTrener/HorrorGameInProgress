@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PlankBridge : Interactable
 {
-    [SerializeField] BoxCollider invisibleWall;
-    [SerializeField] Material afterStandMaterial;
+    [SerializeField] private BoxCollider invisibleWall;
+    [SerializeField] private Material afterStandMaterial;
 
-    Renderer plankBridgeRenderer;
+    private Renderer _plankBridgeRenderer;
 
     private void Start()
     {
-        plankBridgeRenderer =  GetComponent<Renderer>();
+        _plankBridgeRenderer =  GetComponent<Renderer>();
     }
 
     protected override void Interact()
@@ -18,8 +18,8 @@ public class PlankBridge : Interactable
         {
             PlayerHold.Instance.DestroyCurrentHoldable();
             invisibleWall.enabled = false;
-            plankBridgeRenderer.material = afterStandMaterial;
-            PlayerSounds.Instance.PlayCue(interactCue); //Если будет
+            _plankBridgeRenderer.material = afterStandMaterial;
+            PlayerSounds.Instance.PlayCue(interactCue);
             gameObject.layer = 0;
         }
         else

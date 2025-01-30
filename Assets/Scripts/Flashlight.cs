@@ -4,36 +4,37 @@ using UnityEngine;
 
 public class Flashlight : MonoBehaviour
 {
-    [SerializeField] float maxTimeLight;
-    [SerializeField] AudioClip shakeSound;
-    [SerializeField] AudioClip lowBatteryCue;
+    [SerializeField] private float maxTimeLight;
+    [SerializeField] private AudioClip shakeSound;
+    [SerializeField] private AudioClip lowBatteryCue;
 
-    Animator animator;
-    AudioSource audioSource;
-    float timeLight = 0f;
+    private static readonly int FixFlashlight = Animator.StringToHash("FixFlashlight");
+    private Animator _animator;
+    private AudioSource _audioSource;
+    private float _timeLight = 0f;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        if (timeLight < maxTimeLight)
+        if (_timeLight < maxTimeLight)
         {
-            timeLight += Time.deltaTime;
+            _timeLight += Time.deltaTime;
         }
         else
         {
-            timeLight = 0f;
-            animator.SetTrigger("FixFlashlight");
+            _timeLight = 0f;
+            _animator.SetTrigger(FixFlashlight);
         }
     }
 
     private void PlayShakeSound()
     {
-        audioSource.PlayOneShot(shakeSound);
+        _audioSource.PlayOneShot(shakeSound);
     }
 
     private void PlayLowBatteryCue()

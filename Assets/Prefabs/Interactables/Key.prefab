@@ -108,12 +108,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5c32e95f31a7dc49b2f3ad7b1d59627, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtText: "[E] - \u0412\u0437\u044F\u0442\u044C"
   interactCue: {fileID: 8300000, guid: cbadd0c06853b8148a17fea830fb9fc2, type: 3}
   cantInteractCue: {fileID: 0}
   interactSound: {fileID: 8300000, guid: 840e5127200f3364398bac7283b26449, type: 3}
-  interactableRenderer: {fileID: 168221040405762098}
+  interactableRenderers:
+  - {fileID: 168221040405762098}
   type: 3
-  inHandPositionOffset: {x: 0, y: 0.02, z: 0}
   inHandRotationOffset: {x: 0.95788586, y: 0.2517395, z: 0.04719743, w: 0.12982455}
 --- !u!65 &6889917053266567730
 BoxCollider:

@@ -3,10 +3,10 @@ using UnityEngine.Windows;
 
 public class PlayerLook : MonoBehaviour
 {
-    [SerializeField] Camera cam;
-    [SerializeField] float sensitivity = 30f;
+    [SerializeField] private Camera cam;
+    [SerializeField] private float sensitivity = 30f;
 
-    float xRotation = 0f;
+    private float _xRotation;
 
     public void ProcessLook(Vector2 input)
     {
@@ -18,13 +18,13 @@ public class PlayerLook : MonoBehaviour
         ProcessLookCommon(input, 0);
     }
 
-    void ProcessLookCommon(Vector2 input, float topDownLookDegree)
+    private void ProcessLookCommon(Vector2 input, float topDownLookDegree)
     {
         float mouseX = input.x;
         float mouseY = input.y;
-        xRotation -= (mouseY * Time.deltaTime) * sensitivity;
-        xRotation = Mathf.Clamp(xRotation, -topDownLookDegree, topDownLookDegree);
-        cam.transform.localRotation = Quaternion.Euler(xRotation, 0, 0);
+        _xRotation -= (mouseY * Time.deltaTime) * sensitivity;
+        _xRotation = Mathf.Clamp(_xRotation, -topDownLookDegree, topDownLookDegree);
+        cam.transform.localRotation = Quaternion.Euler(_xRotation, 0, 0);
         transform.Rotate(mouseX * Time.deltaTime * sensitivity * Vector3.up);
     }
 }

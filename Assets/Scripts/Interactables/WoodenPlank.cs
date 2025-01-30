@@ -4,21 +4,30 @@ using UnityEngine;
 
 public class WoodenPlank : Holdable
 {
-    [SerializeField] AudioClip successInteractSound;
+    [SerializeField] private AudioClip successInteractSound;
 
-    bool isStatic = true;
+    private bool _isStatic = true;
+    private Rigidbody _rigidbody;
+
+    private readonly string lookAtTextAfterInteraction = "[E] - Взять";
+    
+    private void Start()
+    {
+        _rigidbody = GetComponent<Rigidbody>();
+    }
 
     protected override void Interact()
     {
-        if (!isStatic)
+        if (!_isStatic)
         {
             base.Interact();
         }
         else if (PlayerHold.Instance.GetCurrentHoldableType() == HoldableType.ClawHammer)
         {
             AudioSource.PlayClipAtPoint(successInteractSound, transform.position);
-            GetComponent<Rigidbody>().isKinematic = false;
-            isStatic = false; 
+            lookAtText = lookAtTextAfterInteraction;
+            _rigidbody.isKinematic = false;
+            _isStatic = false; 
         }
         else
         {

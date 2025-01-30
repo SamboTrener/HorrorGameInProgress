@@ -5,12 +5,14 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
+    private static readonly int EmissionColor = Shader.PropertyToID("_EmissionColor");
+    [SerializeField] protected string lookAtText;
     [SerializeField] protected AudioClip interactCue;
     [SerializeField] protected AudioClip cantInteractCue;
     [SerializeField] protected AudioClip interactSound;
-    [SerializeField] Renderer interactableRenderer;
+    [SerializeField] private Renderer[] interactableRenderers;
 
-    Color lookAtColor = new Color(65f / 255f, 65f / 255f, 65f / 255f);
+    private readonly Color _lookAtColor = new Color(65f / 255f, 65f / 255f, 65f / 255f);
 
     public void BaseInteract()
     {
@@ -19,7 +21,7 @@ public abstract class Interactable : MonoBehaviour
 
     protected virtual void Interact()
     {
-        if(interactSound != null)
+        if(interactSound)
         {
             AudioSource.PlayClipAtPoint(interactSound, transform.position);
         }
@@ -27,22 +29,30 @@ public abstract class Interactable : MonoBehaviour
 
     public void HandleLookAt()
     {
-        if (!PlayerHold.Instance.CheckIfCurrentHoldable(gameObject))
-        {
-            SetEmissionColor(lookAtColor);
-        }
+        if (PlayerHold.Instance.CheckIfCurrentHoldable(gameObject))
+            return;
+        SetEmissionColor(_lookAtColor);
+        UI.Instance.ShowText(lookAtText);
     }
 
     public void HandleStopLooking()
     {
         SetEmissionColor(new Color(0, 0, 0));
+        switch (PlayerStateMachine.Instance.PlayerState)
+        {
+            case PlayerState.Default:
+                UI.Instance.HideText();
+                break;
+            case PlayerState.Hiding:
+                break;
+        }
     }
 
-    void SetEmissionColor(Color color)
+    private void SetEmissionColor(Color color)
     {
-        if(interactableRenderer != null)
+        foreach(var interactableRenderer in interactableRenderers)
         {
-            interactableRenderer.material.SetColor("_EmissionColor", color);
+            interactableRenderer.material.SetColor(EmissionColor, color);
             interactableRenderer.material.EnableKeyword("_EMISSION");//This is a bug in unity
         }
     }

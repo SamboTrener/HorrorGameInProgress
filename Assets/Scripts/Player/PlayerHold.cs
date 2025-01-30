@@ -4,21 +4,21 @@ public class PlayerHold : MonoBehaviour
 {
     public static PlayerHold Instance { get; private set; }
 
-    [SerializeField] Transform holdPoint;
+    [SerializeField] private Transform holdPoint;
 
-    public Holdable CurrentHoldable { get; private set; }
+    private Holdable CurrentHoldable { get; set; }
 
-    void Awake()
+    private void Awake()
     {
         Instance = this;
     }
 
     public void TakeHoldable(Holdable holdable)
     {
-        if (CurrentHoldable != null)
+        if (CurrentHoldable)
         {
-            CurrentHoldable.gameObject.transform.SetParent(null, true); //Вынос за холд поинт
-            CurrentHoldable.gameObject.GetComponent<Rigidbody>().isKinematic = false; //возврат физики
+            CurrentHoldable.gameObject.transform.SetParent(null, true); 
+            CurrentHoldable.gameObject.GetComponent<Rigidbody>().isKinematic = false; 
         }
 
         CurrentHoldable = holdable;
@@ -28,28 +28,16 @@ public class PlayerHold : MonoBehaviour
         holdable.gameObject.transform.position = holdPoint.position;
     }
 
-    public bool CheckIfCurrentHoldable(GameObject gameObject)
+    public bool CheckIfCurrentHoldable(GameObject objectToCompare)
     {
-        if (CurrentHoldable != null)
-        {
-            if (CurrentHoldable.gameObject == gameObject)
-            {
-                return true;
-            }
-        }
-        return false;
+        if (!CurrentHoldable) 
+            return false;
+        return CurrentHoldable.gameObject == objectToCompare;
     }
 
     public HoldableType GetCurrentHoldableType()
     {
-        if (CurrentHoldable != null)
-        {
-            return CurrentHoldable.GetHoldableType();
-        }
-        else
-        {
-            return HoldableType.None;
-        }
+        return CurrentHoldable?.GetHoldableType() ?? HoldableType.None;
     }
 
     public void DestroyCurrentHoldable()

@@ -4,27 +4,28 @@ using UnityEngine;
 
 public class Npc : Interactable
 {
-    [SerializeField] HoldableType neededHoldableSubj;
-    [SerializeField] AudioClip[] cues;
-    [SerializeField] float maxTimeCue;
-    
-    float timeCue = 0f;
-    Animator animator;
+    private static readonly int Move = Animator.StringToHash("Move");
+    [SerializeField] private HoldableType neededHoldableSubj;
+    [SerializeField] private AudioClip[] cues;
+    [SerializeField] private float maxTimeCue;
+
+    private float _timeCue = 0f;
+    private Animator _animator;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if(timeCue < maxTimeCue)
+        if(_timeCue < maxTimeCue)
         {
-            timeCue += Time.deltaTime;
+            _timeCue += Time.deltaTime;
         }
         else
         {
-            timeCue = 0f;
+            _timeCue = 0f;
             AudioSource.PlayClipAtPoint(cues[Random.Range(0, cues.Length)], transform.position);
         }
     }
@@ -36,7 +37,7 @@ public class Npc : Interactable
         if (PlayerHold.Instance.GetCurrentHoldableType() == neededHoldableSubj)
         {
             PlayerHold.Instance.DestroyCurrentHoldable();
-            animator.SetTrigger("Move");
+            _animator.SetTrigger(Move);
         }
         else
         {

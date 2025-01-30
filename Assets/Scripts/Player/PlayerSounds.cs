@@ -6,20 +6,20 @@ public class PlayerSounds : MonoBehaviour
 {
     public static PlayerSounds Instance {  get; private set; }
 
-    AudioSource source;
+    private AudioSource _source;
 
     private void Awake()
     {
         Instance = this;
 
-        source = GetComponent<AudioSource>();
+        _source = GetComponent<AudioSource>();
     }
 
     public void PlayCue(AudioClip audioClip)
     {
-        if (!source.isPlaying)
+        if (!_source.isPlaying)
         {
-            source.PlayOneShot(audioClip);
+            _source.PlayOneShot(audioClip);
         }
     }
 }

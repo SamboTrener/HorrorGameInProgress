@@ -100,10 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b7ffcb9e5e9454f9b27abd77be8998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookAtText: "[E] - \u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u044C"
   interactCue: {fileID: 8300000, guid: cb5af55336b63ed49be4131eb581fc4a, type: 3}
   cantInteractCue: {fileID: 0}
   interactSound: {fileID: 0}
-  interactableRenderer: {fileID: 6844999664615527699}
+  interactableRenderers: []
   neededHoldableSubj: 4
   cues:
   - {fileID: 8300000, guid: 92cf1eb1a015b5f4297cd38dbdaf4f46, type: 3}
