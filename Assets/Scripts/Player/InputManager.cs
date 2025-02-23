@@ -44,6 +44,11 @@ public class InputManager : MonoBehaviour
                 _look.ProcessHidingLook(_onFoot.Look.ReadValue<Vector2>());
                 break;
         }
+
+        if (_onFoot.Pause.triggered)
+        {
+            GameManager.Instance.ChangePauseState();
+        }
     }
 
     private void OnEnable()

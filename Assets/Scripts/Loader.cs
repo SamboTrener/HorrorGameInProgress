@@ -7,9 +7,9 @@ public static class Loader
 { 
     public enum Scene
     {
-        MainMenuScene,
-        GameScene,
-        LoadingScene
+        MainMenu,
+        Game,
+        Loading
     }
 
     private static Scene targetScene;
@@ -18,7 +18,7 @@ public static class Loader
     {
         Loader.targetScene = targetScene;
 
-        SceneManager.LoadScene(Scene.LoadingScene.ToString());
+        SceneManager.LoadScene(Scene.Loading.ToString());
     }
 
     public static void LoaderCallback() =>

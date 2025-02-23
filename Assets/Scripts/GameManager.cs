@@ -27,4 +27,30 @@ public class GameManager : MonoBehaviour
     {
         IsPowerOn = true;
     }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0;
+        SettingsMenu.Instance.gameObject.SetActive(true);
+        AudioListener.volume = 0f;
+    }
+    
+    public void UnpauseGame()
+    {
+        Time.timeScale = 1f;
+        SettingsMenu.Instance.gameObject.SetActive(false);
+        AudioListener.volume = 1f;
+    }
+
+    public void ChangePauseState()
+    {
+        if (Time.timeScale == 0f)
+        {
+            UnpauseGame();
+        }
+        else
+        {
+            PauseGame();
+        }
+    }
 }

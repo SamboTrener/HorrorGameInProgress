@@ -1,13 +1,14 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
     public static UI Instance { get; private set; }
 
     [SerializeField] private TextMeshProUGUI textField;
-    
+
     CanvasGroup _canvasGroup;
 
     private const string HidingText = "Вылезти";
@@ -41,7 +42,7 @@ public class UI : MonoBehaviour
         }
     }
 
-    public void ShowText(string text) 
+    public void ShowText(string text)
     {
         _canvasGroup.alpha = 1;
         textField.text = text;
