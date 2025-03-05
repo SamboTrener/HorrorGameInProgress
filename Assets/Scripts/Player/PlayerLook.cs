@@ -11,11 +11,17 @@ public class PlayerLook : MonoBehaviour
     private float _sensitivity;
     private float _xRotation;
     
-    private void Awake()    
-    {
-        _sensitivity = 1 + SaveLoadManager.GetSensitivityLevel() * sensitivityCoef; //не тестил
+    private void Awake()
+    {  
+        ChangeSensitivity();
+        SensitivityChanger.Instance.OnSensitivityChanged += ChangeSensitivity;
     }
 
+    private void ChangeSensitivity()
+    {
+        _sensitivity = 1 + SaveLoadManager.GetSensitivityLevel() * sensitivityCoef;
+    }
+    
     public void ProcessLook(Vector2 input)
     {
         ProcessLookCommon(input, 80);

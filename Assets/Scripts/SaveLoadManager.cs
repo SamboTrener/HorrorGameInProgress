@@ -5,7 +5,7 @@ using UnityEngine;
 public static class SaveLoadManager
 {
     private static float _volume = 0.5f;
-    private static float _sensitivity  = 9f;
+    private static float _sensitivity  = 0.5f;
 
     public static void SaveSensitivityLevel(float sensitivity)
     {
