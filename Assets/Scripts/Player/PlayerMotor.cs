@@ -10,6 +10,8 @@ public class PlayerMotor : MonoBehaviour
     private CharacterController _characterController;
     private Vector3 _beforeHidePosition;
 
+    public bool IsMoving { get; private set; }
+    
     private void Awake()
     {
         Instance = this;
@@ -26,6 +28,7 @@ public class PlayerMotor : MonoBehaviour
 
         moveDirection.x = input.x;
         moveDirection.z = input.y;
+        IsMoving = moveDirection != Vector3.zero;
         _characterController.SimpleMove(speed * Time.deltaTime * transform.TransformDirection(moveDirection));
     }
 
@@ -34,8 +37,6 @@ public class PlayerMotor : MonoBehaviour
         PlayerStateMachine.Instance.ChangePlayerState(PlayerState.Hiding);
         _beforeHidePosition = gameObject.transform.position;
         gameObject.transform.position = placeToHide.position;
-        Debug.Log(_beforeHidePosition);
-        Debug.Log(gameObject.transform.position);
     }
 
     public IEnumerator StopHiding()

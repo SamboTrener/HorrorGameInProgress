@@ -14,7 +14,16 @@ public class PlayerLook : MonoBehaviour
     private void Awake()
     {  
         ChangeSensitivity();
+    }
+
+    private void Start()
+    {
         SensitivityChanger.Instance.OnSensitivityChanged += ChangeSensitivity;
+    }
+
+    private void OnDestroy()
+    {
+        SensitivityChanger.Instance.OnSensitivityChanged -= ChangeSensitivity;
     }
 
     private void ChangeSensitivity()

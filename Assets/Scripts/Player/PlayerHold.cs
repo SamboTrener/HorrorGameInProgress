@@ -43,5 +43,6 @@ public class PlayerHold : MonoBehaviour
     public void DestroyCurrentHoldable()
     {
         Destroy(CurrentHoldable.gameObject);
+        CurrentHoldable = null;
     }
 }

@@ -348,7 +348,7 @@ MonoBehaviour:
   lookAtText: "[E] - \u041E\u0442\u043E\u0440\u0432\u0430\u0442\u044C"
   interactCue: {fileID: 0}
   cantInteractCue: {fileID: 8300000, guid: 2e2479abf13a63c42996ba5fd22cbf25, type: 3}
-  interactSound: {fileID: 0}
+  interactSound: {fileID: 8300000, guid: 840e5127200f3364398bac7283b26449, type: 3}
   interactableRenderers:
   - {fileID: 6067810297781111006}
   type: 1

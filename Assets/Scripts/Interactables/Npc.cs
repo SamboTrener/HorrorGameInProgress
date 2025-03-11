@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Npc : Interactable
@@ -9,8 +7,10 @@ public class Npc : Interactable
     [SerializeField] private AudioClip[] cues;
     [SerializeField] private float maxTimeCue;
 
-    private float _timeCue = 0f;
+    private float _timeCue;
     private Animator _animator;
+    private bool _isSatisfied;
+    private float _cuesVolume = 0.5f;
 
     private void Start()
     {
@@ -19,6 +19,8 @@ public class Npc : Interactable
 
     private void Update()
     {
+        if (_isSatisfied) return;
+        
         if(_timeCue < maxTimeCue)
         {
             _timeCue += Time.deltaTime;
@@ -26,7 +28,7 @@ public class Npc : Interactable
         else
         {
             _timeCue = 0f;
-            AudioSource.PlayClipAtPoint(cues[Random.Range(0, cues.Length)], transform.position);
+            AudioSource.PlayClipAtPoint(cues[Random.Range(0, cues.Length)], transform.position, _cuesVolume);
         }
     }
 
@@ -37,7 +39,10 @@ public class Npc : Interactable
         if (PlayerHold.Instance.GetCurrentHoldableType() == neededHoldableSubj)
         {
             PlayerHold.Instance.DestroyCurrentHoldable();
+            AudioSource.PlayClipAtPoint(interactCue, transform.position, _cuesVolume);
             _animator.SetTrigger(Move);
+            _isSatisfied = true;
+            gameObject.layer = LayerMask.NameToLayer("Default");
         }
         else
         {

@@ -1,8 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayButton : MonoBehaviour
+public class LoadSceneButton : MonoBehaviour
 {
+    [SerializeField] private Loader.Scene scene;
+    
     private Button _button;
     
     private void Awake()
@@ -14,6 +16,6 @@ public class PlayButton : MonoBehaviour
 
     private void LoadGameScene()
     {
-        Loader.Load(Loader.Scene.Game);
+        Loader.Load(scene);
     }
 }

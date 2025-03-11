@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookAtText: "[E] - \u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u044C"
   interactCue: {fileID: 8300000, guid: cb5af55336b63ed49be4131eb581fc4a, type: 3}
-  cantInteractCue: {fileID: 0}
+  cantInteractCue: {fileID: 8300000, guid: 9304e37b1f6646e489509f370a5c2aef, type: 3}
   interactSound: {fileID: 0}
   interactableRenderers: []
   neededHoldableSubj: 4
@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 92cf1eb1a015b5f4297cd38dbdaf4f46, type: 3}
   - {fileID: 8300000, guid: b265b86abeda09b498eeb78cbd28a011, type: 3}
   - {fileID: 8300000, guid: ea23a11bea533f4429cbf15e4bd2c69f, type: 3}
-  maxTimeCue: 3
+  maxTimeCue: 5
 --- !u!95 &1858262597484268146
 Animator:
   serializedVersion: 5
@@ -211,7 +211,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 2.7428572, y: 2.7428572}
+  m_Size: {x: 3.84, y: 3.84}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

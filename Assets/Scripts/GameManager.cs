@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject looseGameWindow;
+    
     public static GameManager Instance { get; private set; }
     public bool IsPowerOn { get; private set; }
     public int DoneLeverCount { get; private set; }
@@ -15,9 +17,17 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         IsPowerOn = false;
+        UnpauseGame();
         DoneLeverCount = 0;
     }
 
+    public void LooseGame()
+    {
+        PlayerSounds.Instance.PlayLooseSound();
+        looseGameWindow.SetActive(true);
+        Time.timeScale = 0f;
+    }
+    
     public void SwitchLever()
     {
         DoneLeverCount++;
