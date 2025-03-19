@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 public class Npc : Interactable
 {
@@ -10,10 +11,12 @@ public class Npc : Interactable
     private float _timeCue;
     private Animator _animator;
     private bool _isSatisfied;
-    private float _cuesVolume = 0.5f;
+    private float _cuesVolume = 0.3f;
 
     private void Start()
     {
+        YG2.TryGetFlagAsFloat("maxTimeNpcCue", out maxTimeCue);
+        YG2.TryGetFlagAsFloat("npcVolume", out _cuesVolume);
         _animator = GetComponent<Animator>();
     }
 

@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb00543c43296a4ebbb2fc77d0ebfff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtText: "[E] - \u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432\u043E\u0440\u043E\u0442\u0430"
+  lookAtText: "\u041E\u0442\u043A\u0440\u044B\u0442\u044C \u0432\u043E\u0440\u043E\u0442\u0430"
   interactCue: {fileID: 8300000, guid: 0b41b2caab3b26240b2cb27e6f73f04e, type: 3}
   cantInteractCue: {fileID: 8300000, guid: 4af056533173183488db2d95e0024945, type: 3}
   interactSound: {fileID: 8300000, guid: ced68a2c373976c47804abb2fe7dfbaf, type: 3}

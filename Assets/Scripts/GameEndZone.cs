@@ -13,9 +13,7 @@ public class GameEndZone : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         if (GameManager.Instance.IsPowerOn)
         {
-            gameEndWindow.SetActive(true);
-            PlayerSounds.Instance.PlayWinSound();
-            Time.timeScale = 0f;
+            GameManager.Instance.WinGame(gameEndWindow);
         }
         else
         {

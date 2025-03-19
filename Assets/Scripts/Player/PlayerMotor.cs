@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using YG;
 
 public class PlayerMotor : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerMotor : MonoBehaviour
 
     private void Start()
     {
+        YG2.TryGetFlagAsFloat("playerSpeed", out speed);
         _characterController = GetComponent<CharacterController>();
     }
 

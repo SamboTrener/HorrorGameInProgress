@@ -1,12 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.Windows;
+using YG;
 
 public class PlayerLook : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private float sensitivityCoef = 10f;
+    [SerializeField] private float mobileSensitivityCoef = 100f;
     
     private float _sensitivity;
     private float _xRotation;
@@ -28,7 +31,14 @@ public class PlayerLook : MonoBehaviour
 
     private void ChangeSensitivity()
     {
-        _sensitivity = 1 + SaveLoadManager.GetSensitivityLevel() * sensitivityCoef;
+        if (YG2.envir.isMobile)
+        {
+            _sensitivity = 1 + SaveLoadManager.GetSensitivityLevel() * mobileSensitivityCoef;
+        }
+        else
+        {
+            _sensitivity = 1 + SaveLoadManager.GetSensitivityLevel() * sensitivityCoef;
+        }
     }
     
     public void ProcessLook(Vector2 input)

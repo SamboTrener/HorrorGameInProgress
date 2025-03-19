@@ -1,10 +1,11 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerInteract : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private float distance = 2f;
-    [SerializeField] private LayerMask mask;
+    [SerializeField] private LayerMask raycastMask;
 
     private Interactable _interactable;
 
@@ -15,13 +16,17 @@ public class PlayerInteract : MonoBehaviour
             case PlayerState.Default:
                 var ray = new Ray(cam.transform.position, cam.transform.forward);
                 Debug.DrawRay(ray.origin, ray.direction * distance);
-                if (Physics.Raycast(ray, out var hitInfo, distance, mask))
+                if (Physics.Raycast(ray, out var hitInfo, distance, raycastMask))
                 {
                     if (_interactable)
                     {
                         ResetInteractable();
                     }
                     _interactable = hitInfo.collider.GetComponent<Interactable>();
+                    if (!_interactable)
+                    {
+                        return;
+                    }
                     _interactable.HandleLookAt();
                     if (InputManager.Instance.IsInteractTriggered())
                     {

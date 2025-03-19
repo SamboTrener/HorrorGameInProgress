@@ -2,6 +2,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class UI : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class UI : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI textField;
 
-    CanvasGroup _canvasGroup;
+    private CanvasGroup _canvasGroup;
 
     private const string HidingText = "Вылезти";
 

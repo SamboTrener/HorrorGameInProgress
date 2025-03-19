@@ -14,10 +14,14 @@ public class SensitivityChanger : MonoBehaviour
     {
         Instance = this;
         _scrollbar = GetComponent<Scrollbar>();
+    }
+
+    private void Start()
+    {
         _scrollbar.onValueChanged.AddListener(ChangeSensitivity);
         _scrollbar.value = SaveLoadManager.GetSensitivityLevel();
     }
-    
+
     private void ChangeSensitivity(float sens)
     {
         SaveLoadManager.SaveSensitivityLevel(sens);

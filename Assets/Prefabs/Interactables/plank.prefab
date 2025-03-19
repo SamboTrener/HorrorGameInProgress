@@ -345,7 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17360ac4c18be974fa4194d8b6935bbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtText: "[E] - \u041E\u0442\u043E\u0440\u0432\u0430\u0442\u044C"
+  lookAtText: "\u041E\u0442\u043E\u0440\u0432\u0430\u0442\u044C"
   interactCue: {fileID: 0}
   cantInteractCue: {fileID: 8300000, guid: 2e2479abf13a63c42996ba5fd22cbf25, type: 3}
   interactSound: {fileID: 8300000, guid: 840e5127200f3364398bac7283b26449, type: 3}

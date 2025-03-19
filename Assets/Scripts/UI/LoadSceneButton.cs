@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 
 public class LoadSceneButton : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class LoadSceneButton : MonoBehaviour
 
     private void LoadGameScene()
     {
+        YG2.InterstitialAdvShow();
         Loader.Load(scene);
     }
 }

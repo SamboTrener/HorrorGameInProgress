@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class Flashlight : MonoBehaviour
 {
@@ -11,10 +12,11 @@ public class Flashlight : MonoBehaviour
     private static readonly int FixFlashlight = Animator.StringToHash("FixFlashlight");
     private Animator _animator;
     private AudioSource _audioSource;
-    private float _timeLight = 0f;
+    private float _timeLight;
 
     private void Start()
     {
+        YG2.TryGetFlagAsFloat("maxTimeLight", out maxTimeLight);
         _animator = GetComponent<Animator>();
         _audioSource = GetComponent<AudioSource>();
     }

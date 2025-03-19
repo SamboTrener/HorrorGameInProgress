@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76b7ffcb9e5e9454f9b27abd77be8998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lookAtText: "[E] - \u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u044C"
+  lookAtText: "\u041F\u043E\u0433\u043E\u0432\u043E\u0440\u0438\u0442\u044C"
   interactCue: {fileID: 8300000, guid: cb5af55336b63ed49be4131eb581fc4a, type: 3}
   cantInteractCue: {fileID: 8300000, guid: 9304e37b1f6646e489509f370a5c2aef, type: 3}
   interactSound: {fileID: 0}

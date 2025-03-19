@@ -1,25 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using YG;
 
 public static class SaveLoadManager
 {
-    private static float _volume = 0.5f;
-    private static float _sensitivity  = 0.5f;
-
     public static void SaveSensitivityLevel(float sensitivity)
     {
-        _sensitivity  = sensitivity;
-        //Save
+        YG2.saves.sensitivity  = sensitivity;
+        YG2.SaveProgress();
     }
 
-    public static float GetSensitivityLevel() => _sensitivity;
+    public static float GetSensitivityLevel() => YG2.saves.sensitivity;
     
     public static  void SaveVolumeLevel(float volume)
     {
-        _volume = volume;
-        //Save
+        YG2.saves.volume = volume;
+        YG2.SaveProgress();
     }
 
-    public static float GetVolumeLevel() => _volume;
+    public static float GetVolumeLevel() => YG2.saves.volume;
 }

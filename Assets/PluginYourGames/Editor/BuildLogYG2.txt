@@ -1,0 +1,3 @@
+Build path: D:/DATA/Desktop/приколы/Билды/escapeGame/escapeGame
+Build number: 9
+PluginYG version: 2.0031

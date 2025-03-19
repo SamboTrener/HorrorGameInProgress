@@ -9,7 +9,7 @@ public class WoodenPlank : Holdable
     private bool _isStatic = true;
     private Rigidbody _rigidbody;
 
-    private readonly string lookAtTextAfterInteraction = "[E] - Взять";
+    private readonly string lookAtTextAfterInteraction = "Взять";
     
     private void Start()
     {

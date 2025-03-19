@@ -1,10 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
+using YG;
 using Random = UnityEngine.Random;
 
 public class EnemyAI : MonoBehaviour
@@ -15,23 +12,32 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float chaseSpeed;
     [SerializeField] private float walkSpeed;
     [SerializeField] private float attackDistance;
-    
+
     private NavMeshAgent _agent;
     private Vector3 _destination;
     private float _chaseTimer;
-    
+
     public Action OnStateChanged;
-    
+
     public EnemyState EnemyState { get; private set; }
-    
+
     public void SetEnemyState(EnemyState state)
     {
         EnemyState = state;
         OnStateChanged?.Invoke();
     }
-    
+
+    private void MapFlagValues()
+    {
+        YG2.TryGetFlagAsFloat("enemyWalkSpeed", out walkSpeed);
+        YG2.TryGetFlagAsFloat("enemyChaseSpeed", out chaseSpeed);
+        YG2.TryGetFlagAsFloat("enemyChaseDuration", out chaseDuration);
+        YG2.TryGetFlagAsFloat("enemyDetectionRange", out detectionRange);
+    }
+
     private void Start()
     {
+        MapFlagValues();
         _agent = GetComponent<NavMeshAgent>();
         UpdateDestination();
     }
@@ -46,7 +52,7 @@ public class EnemyAI : MonoBehaviour
                 StartChase();
             }
         }
-        
+
         switch (EnemyState)
         {
             case EnemyState.Walking:
@@ -56,6 +62,7 @@ public class EnemyAI : MonoBehaviour
                 {
                     UpdateDestination();
                 }
+
                 break;
             case EnemyState.Chasing:
                 _agent.isStopped = false;
@@ -68,17 +75,19 @@ public class EnemyAI : MonoBehaviour
                     GameManager.Instance.LooseGame();
                     Destroy(gameObject); //not to invoke loose game 1000 times
                 }
-                
+
                 if (_chaseTimer <= 0 && IsPlayerReachable(distanceToPlayer))
                 {
                     _chaseTimer = chaseDuration;
                 }
-                
-                if (_chaseTimer <= 0 || distanceToPlayer >= detectionRange || PlayerStateMachine.Instance.PlayerState == PlayerState.Hiding)
+
+                if (_chaseTimer <= 0 || distanceToPlayer >= detectionRange ||
+                    PlayerStateMachine.Instance.PlayerState == PlayerState.Hiding)
                 {
                     EndChase();
                     UpdateDestination();
                 }
+
                 break;
             case EnemyState.LostTarget:
                 _agent.isStopped = true;
@@ -103,7 +112,7 @@ public class EnemyAI : MonoBehaviour
 
         return false;
     }
-    
+
     private void UpdateDestination()
     {
         _destination = waypoints[Random.Range(0, waypoints.Length)].position;

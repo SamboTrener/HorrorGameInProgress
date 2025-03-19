@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YG;
 
 public class PlayerSounds : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class PlayerSounds : MonoBehaviour
     [SerializeField] private Transform footPosition;
     [SerializeField] private AudioClip looseGameSound;
     [SerializeField] private AudioClip winGameSound;
+    [SerializeField] private AudioClip startGameCue;
 
     private const float FootstepVolume = 0.5f;
     private float _footstepTimer;
@@ -21,6 +24,12 @@ public class PlayerSounds : MonoBehaviour
         Instance = this;
 
         _source = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        YG2.TryGetFlagAsFloat("playerFootstepTimerMax", out footstepTimerMax);
+       StartCoroutine(PlayCueAfterWait(startGameCue));
     }
 
     private void Update()
@@ -37,6 +46,12 @@ public class PlayerSounds : MonoBehaviour
         }
     }
 
+    private IEnumerator PlayCueAfterWait(AudioClip audioClip)
+    {
+        yield return new WaitForSeconds(1f);
+        PlayCue(audioClip);
+    }
+    
     public void PlayCue(AudioClip audioClip)
     {
         if (!_source.isPlaying)
